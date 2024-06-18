@@ -47,7 +47,7 @@ function createColorPicker() {
   const hotkeyMessage = document.createElement("p");
   hotkeyMessage.innerText = "Press 'p' to toggle color picker";
   hotkeyMessage.style.marginTop = "10px";
-  hotkeyMessage.style.color = "#fff"; // Adjust color as needed
+  hotkeyMessage.style.color = "#fff";
   colorPicker.appendChild(hotkeyMessage);
 }
 
@@ -69,31 +69,51 @@ function createCircle() {
 }
 
 // Helper function for placing circles.
-function placeCircle(circle) {
-  const copy = circle.cloneNode(true);
-  app.appendChild(copy);
+function placeCircle(container) {
+  const copy = mouseCircle.cloneNode(true);
+  copy.style.position = "absolute";
+  copy.style.top = mouseCircle.style.top;
+  copy.style.left = mouseCircle.style.left;
+  container.appendChild(copy);
 }
 
 // Update the circle's color based on the slider values.
 function updateCircleColor(circle) {
-  const red = document.getElementById("red").value;
-  const green = document.getElementById("green").value;
-  const blue = document.getElementById("blue").value;
-  const alpha = document.getElementById("alpha").value;
+  const red = parseInt(document.getElementById("red").value);
+  const green = parseInt(document.getElementById("green").value);
+  const blue = parseInt(document.getElementById("blue").value);
+  const alpha = parseInt(document.getElementById("alpha").value);
   const color = `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`;
   circle.style.backgroundColor = color;
   colorPicker.style.backgroundColor = color;
+
+  // Check condition for text color change
+  const sumRG = red + green;
+  const textColor = sumRG > 450 || alpha < 128 ? "#000" : "#fff";
+
+  // Update text color of all elements inside #color-picker
+  const colorPickerElements = document.querySelectorAll(
+    "#color-picker, #color-picker *"
+  );
+  colorPickerElements.forEach((element) => {
+    element.style.color = textColor;
+  });
 }
 
 // Variable to track whether the mouse is pressed down.
 let isDrawing = false;
 
-// Place the mouse circle at the current location,
-// and switch the circle to a new color.
-function handleClick(event) {
-  event.preventDefault();
-  placeCircle(mouseCircle);
-  updateCircleColor(mouseCircle);
+// Store all brush strokes in an array
+const brushStrokes = [];
+let currentStroke;
+
+// Create a new container for each brush stroke
+function startNewStroke() {
+  const strokeContainer = document.createElement("div");
+  strokeContainer.classList.add("brush-stroke");
+  app.appendChild(strokeContainer);
+  brushStrokes.push(strokeContainer);
+  return strokeContainer;
 }
 
 // Create a "painting" effect with pointerdown
@@ -102,12 +122,15 @@ let paintInterval;
 function handleStart(event) {
   event.preventDefault();
   isDrawing = true;
+  currentStroke = startNewStroke();
+  placeCircle(currentStroke); // Initial placement
   paintInterval = setInterval(() => {
     if (isDrawing) {
-      placeCircle(mouseCircle);
+      placeCircle(currentStroke);
     }
   }, 10);
 }
+
 function handleEnd(event) {
   event.preventDefault();
   isDrawing = false;
@@ -121,23 +144,33 @@ function handlePointerLeave(event) {
   clearInterval(paintInterval);
 }
 
+// Undo the last brush stroke
+function undoLastBrushStroke() {
+  if (brushStrokes.length > 0) {
+    const lastStroke = brushStrokes.pop();
+    app.removeChild(lastStroke);
+  }
+}
+
 // Toggle color picker visibility with the 'p' key.
 document.addEventListener("keydown", (event) => {
   if (event.key === "p") {
     colorPicker.style.display =
-      colorPicker.style.display === "none" ? "block" : "none";
+      colorPicker.style.display === "none" ? "flex" : "none";
+  } else if (event.key === "z") {
+    undoLastBrushStroke();
   }
 });
 
 // Moves the mouse circle alongside the mouse.
 function handleMove(event) {
   event.preventDefault();
-  mouseCircle.style.top = event.y - mouseCircle.clientHeight / 2 + "px";
-  mouseCircle.style.left = event.x - mouseCircle.clientWidth / 2 + "px";
+  const size = mouseCircle.offsetWidth / 2;
+  mouseCircle.style.top = `${event.clientY - size}px`;
+  mouseCircle.style.left = `${event.clientX - size}px`;
 }
 
 // Register events!
-app.addEventListener("click", handleClick);
 app.addEventListener("pointerdown", handleStart);
 app.addEventListener("pointerup", handleEnd);
 app.addEventListener("pointermove", handleMove);

@@ -1,3 +1,9 @@
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 html,
 body,
 #app {
@@ -19,37 +25,39 @@ body {
 
 .circle {
   position: absolute;
-  top: 25px;
-  left: 25px;
   width: 25px;
   height: 25px;
   border-radius: 50%;
   background-color: rgba(128, 128, 128, 1);
+  pointer-events: none; /* Make sure the circle doesn't interfere with mouse events */
 }
 
 #color-picker {
   position: absolute;
   top: 0;
   left: 0;
-  width: auto;
-  height: auto; /* Adjust height as needed */
-  border-bottom-right-radius: 100%;
+  width: 360px; /* Fixed width to prevent resizing */
+  padding: 10px;
+  border-bottom-right-radius: 40%;
+  border-top-right-radius: 10%;
+  border-bottom-left-radius: 10%;
   background-color: rgba(128, 128, 128, 1);
-  display: flex;
-  flex-direction: row; /* Display sliders in a row */
+  display: flex; /* Initially displayed */
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 10px;
   box-sizing: border-box;
+  border: 2px solid #232323; /* Add border */
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); /* Add shadow */
 }
 
 .slider-container {
-  flex: 1; /* Each container takes up equal space */
-  margin-right: 10px; /* Spacing between containers */
+  flex: 1;
+  margin-right: 10px;
 }
 
 .slider-container.right {
-  flex: 0; /* Adjust this to control width of the right container */
+  flex: 0;
 }
 
 #color-picker label {
@@ -68,4 +76,28 @@ body {
 #color-picker p {
   margin-top: 10px;
   color: #fff;
+}
+
+/* Apply Bebas Neue font to all text inside #color-picker */
+#color-picker,
+#color-picker * {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 40px;
+}
+
+/* Example: Apply specific styling to labels */
+#color-picker label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 5px 0;
+  color: #fff;
+  font-weight: 400; /* Optionally adjust font weight */
+}
+
+/* Example: Apply specific styling to paragraphs */
+#color-picker p {
+  margin-top: 10px;
+  color: #fff;
+  font-weight: 400; /* Optionally adjust font weight */
 }
