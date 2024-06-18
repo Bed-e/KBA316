@@ -1,5 +1,5 @@
 MY SBA IDEA:
-DRAWING TOOL THat uses this as a base^
+DRAWING TOOL inspired by dot placer exercise.
 changes:
 -no random colors✅
 -add colormenu✅
@@ -13,5 +13,5 @@ Extras:
 -preview of color on colormenu✅
 -colormenu could be a quarter circle in a corner with cute round font, and the background of it could be the pen color ✅
 -SQUASH INFINITE DRAWING (w/o clicking) BUG ✅
--create list of brush strokes and impliment undoing❌
+-create list of brush strokes and impliment undoing✅
 -display black circle around edge of circle before it's placed ie cursor highlight❌

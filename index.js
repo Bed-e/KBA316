@@ -58,23 +58,42 @@ createColorPicker();
 const mouseCircle = createCircle();
 app.appendChild(mouseCircle);
 
-// Helper function for making circles.
 function createCircle() {
   const circle = document.createElement("div");
   circle.classList.add("circle");
+
+  // Create the black ring element
+  const ring = document.createElement("div");
+  ring.classList.add("circle-ring");
+  ring.classList.add("cursor-ring"); // Add a class to identify it as the cursor ring
+  circle.appendChild(ring);
+
   circle.style.width = "25px"; // Initial size
   circle.style.height = "25px"; // Initial size
   updateCircleColor(circle);
   return circle;
 }
 
-// Helper function for placing circles.
 function placeCircle(container) {
   const copy = mouseCircle.cloneNode(true);
   copy.style.position = "absolute";
   copy.style.top = mouseCircle.style.top;
   copy.style.left = mouseCircle.style.left;
   container.appendChild(copy);
+
+  // Ensure the cursor ring is above placed circles
+  const cursorRing = copy.querySelector(".cursor-ring");
+  cursorRing.style.zIndex = "2"; // Ensure the cursor ring is above placed circles
+
+  // Hide the ring for placed circles
+  const ring = copy.querySelector(".circle-ring");
+  if (!container.classList.contains("brush-stroke")) {
+    ring.style.display = "block";
+  } else {
+    ring.style.display = "none";
+    // Set z-index for placed circles
+    copy.style.zIndex = "0"; // or any value to position them below mouseCircle
+  }
 }
 
 // Update the circle's color based on the slider values.
