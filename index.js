@@ -30,8 +30,8 @@ function createColorPicker() {
   const sizeSlider = document.createElement("input");
   sizeSlider.type = "range";
   sizeSlider.id = "size";
-  sizeSlider.min = "10";
-  sizeSlider.max = "100";
+  sizeSlider.min = "5";
+  sizeSlider.max = "1000";
   sizeSlider.value = "25";
   sizeLabel.appendChild(sizeSlider);
   container.appendChild(sizeLabel);
@@ -45,9 +45,13 @@ function createColorPicker() {
 
   // Add message for hotkey 'p'
   const hotkeyMessage = document.createElement("p");
-  hotkeyMessage.innerText = "Press 'p' to toggle color picker";
-  hotkeyMessage.style.marginTop = "10px";
+  hotkeyMessage.innerText =
+    "p: toggle color picker\no: toggle outline\nz: undo";
+  hotkeyMessage.style.marginTop = "0px";
   hotkeyMessage.style.color = "#fff";
+  hotkeyMessage.style.fontSize = "30px";
+  hotkeyMessage.style.textAlign = "center";
+  hotkeyMessage.style.paddingRight = "5px";
   colorPicker.appendChild(hotkeyMessage);
 }
 
@@ -108,7 +112,7 @@ function updateCircleColor(circle) {
 
   // Check condition for text color change
   const sumRG = red + green;
-  const textColor = sumRG > 450 || alpha < 128 ? "#000" : "#fff";
+  const textColor = sumRG > 400 || alpha < 128 ? "#000" : "#fff";
 
   // Update text color of all elements inside #color-picker
   const colorPickerElements = document.querySelectorAll(
@@ -172,12 +176,16 @@ function undoLastBrushStroke() {
 }
 
 // Toggle color picker visibility with the 'p' key.
+// Toggle visibility of the black ring with the 'o' key.
 document.addEventListener("keydown", (event) => {
   if (event.key === "p") {
     colorPicker.style.display =
       colorPicker.style.display === "none" ? "flex" : "none";
   } else if (event.key === "z") {
     undoLastBrushStroke();
+  } else if (event.key === "o") {
+    const circle = document.querySelector(".circle");
+    circle.classList.toggle("hide-ring");
   }
 });
 
@@ -190,6 +198,7 @@ function handleMove(event) {
 }
 
 // Register events!
+
 app.addEventListener("pointerdown", handleStart);
 app.addEventListener("pointerup", handleEnd);
 app.addEventListener("pointermove", handleMove);

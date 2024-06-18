@@ -37,19 +37,20 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 360px; /* Fixed width to prevent resizing */
+  width: 360px;
   padding: 10px;
-  border-bottom-right-radius: 40%;
-  border-top-right-radius: 10%;
-  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 20%;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   background-color: rgba(128, 128, 128, 1);
-  display: flex; /* Initially displayed */
+  display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
   box-sizing: border-box;
-  border: 2px solid #232323; /* Add border */
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); /* Add shadow */
+  border: 2px solid #232323;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  z-index: 100; /* Ensure the color picker is above everything */
 }
 
 .slider-container {
@@ -114,4 +115,9 @@ body {
   pointer-events: none;
   box-sizing: border-box;
   z-index: 2; /* Ensure .circle-ring is above circles */
+  display: block; /* Initially visible */
+}
+
+.circle.hide-ring .circle-ring {
+  display: none; /* Hide the ring when .hide-ring class is applied */
 }
