@@ -46,7 +46,7 @@ function createColorPicker() {
   // Add message for hotkey 'p'
   const hotkeyMessage = document.createElement("p");
   hotkeyMessage.innerText =
-    "p: toggle color picker\no: toggle outline\nz: undo";
+    "P: Toggle Color Picker\nO: Toggle Outline\nZ: Undo";
   hotkeyMessage.style.marginTop = "0px";
   hotkeyMessage.style.color = "#fff";
   hotkeyMessage.style.fontSize = "30px";
