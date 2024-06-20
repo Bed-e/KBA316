@@ -1,3 +1,9 @@
+.righteous-regular {
+  font-family: "Righteous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .bebas-neue-regular {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
@@ -37,7 +43,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 360px;
+  width: 400px;
   padding: 10px;
   border-bottom-right-radius: 20%;
   border-top-right-radius: 10px;
@@ -80,11 +86,11 @@ body {
   color: #fff;
 }
 
-/* Apply Bebas Neue font to all text inside #color-picker */
+/* Apply righteous font to all text inside #color-picker */
 #color-picker,
 #color-picker * {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 40px;
+  font-family: "righteous", sans-serif;
+  font-size: 30px;
 }
 
 /* Example: Apply specific styling to labels */
