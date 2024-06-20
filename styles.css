@@ -1,15 +1,4 @@
-.righteous-regular {
-  font-family: "Righteous", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.bebas-neue-regular {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
+/* styles.css */
 html,
 body,
 #app {
@@ -36,7 +25,7 @@ body {
   border-radius: 50%;
   background-color: rgba(128, 128, 128, 1);
   pointer-events: none;
-  z-index: 1; /* Ensure circles are below .circle-ring */
+  z-index: 1;
 }
 
 #color-picker {
@@ -50,22 +39,20 @@ body {
   border-bottom-left-radius: 10px;
   background-color: rgba(128, 128, 128, 1);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-sizing: border-box;
   border: 2px solid #232323;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-  z-index: 100; /* Ensure the color picker is above everything */
+  z-index: 100;
+  padding-bottom: 0; /* Remove bottom padding */
 }
 
 .slider-container {
-  flex: 1;
-  margin-right: 10px;
-}
-
-.slider-container.right {
-  flex: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 #color-picker label {
@@ -74,40 +61,29 @@ body {
   width: 100%;
   margin: 5px 0;
   color: #fff;
+}
+
+#color-picker label span {
+  width: 60px; /* Set a fixed width for labels */
+  text-align: right; /* Right align the text */
+  margin-right: 10px; /* Adjust margin to move text closer to sliders */
 }
 
 #color-picker input[type="range"] {
-  margin-left: 10px;
   flex: 1;
 }
 
 #color-picker p {
-  margin-top: 10px;
+  margin: 0; /* Remove margins from paragraphs */
   color: #fff;
-}
-
-/* Apply righteous font to all text inside #color-picker */
-#color-picker,
-#color-picker * {
-  font-family: "righteous", sans-serif;
+  font-family: "Righteous", sans-serif;
   font-size: 30px;
 }
 
-/* Example: Apply specific styling to labels */
-#color-picker label {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin: 5px 0;
-  color: #fff;
-  font-weight: 400; /* Optionally adjust font weight */
-}
-
-/* Example: Apply specific styling to paragraphs */
-#color-picker p {
-  margin-top: 10px;
-  color: #fff;
-  font-weight: 400; /* Optionally adjust font weight */
+#color-picker,
+#color-picker * {
+  font-family: "Righteous", sans-serif;
+  font-size: 30px;
 }
 
 .circle-ring {
@@ -120,10 +96,9 @@ body {
   border-radius: 50%;
   pointer-events: none;
   box-sizing: border-box;
-  z-index: 2; /* Ensure .circle-ring is above circles */
-  display: block; /* Initially visible */
+  z-index: 2;
 }
 
 .circle.hide-ring .circle-ring {
-  display: none; /* Hide the ring when .hide-ring class is applied */
+  display: none;
 }
